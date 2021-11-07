@@ -1,0 +1,14 @@
+<br>
+<div style="padding-left: 10%; padding-right: 10%">
+  <div nz-row [nzGutter]="8" nzJustify="center">
+    <div nz-col [nzSpan]="8" *ngFor="let c of categories.slice(0, 2)">
+      <app-category-card [cardTitle]="c"></app-category-card>
+    </div>
+
+  </div>
+  <div nz-row [nzGutter]="8" nzJustify="center" style="margin-top: 2%">
+    <div nz-col [nzSpan]="8" *ngFor="let c of categories.slice(2, 4)">
+      <app-category-card [cardTitle]="c"></app-category-card>
+    </div>
+  </div>
+</div>

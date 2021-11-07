@@ -1,0 +1,14 @@
+<nz-card style="width:240px" [nzCover]="coverTemplate" [nzActions]="[actionAddToCart, actionShowDetails, actionEllipsis]">
+  <nz-card-meta [nzTitle]="product.name" nzDescription="www.instagram.com" ></nz-card-meta>
+</nz-card>
+<ng-template #coverTemplate>
+  <img alt="product-img" [src]="getImageUrl()"/>
+</ng-template>
+<ng-template #actionAddToCart>
+  <i nz-icon nzType="shopping-cart" nzTheme="outline"></i>
+  Add to cart
+</ng-template>
+<ng-template #actionShowDetails>
+  <i nz-icon nzType="right-circle" nzTheme="outline"></i>
+  Show details
+</ng-template>

@@ -1,0 +1,25 @@
+<nz-layout>
+  <ul nz-menu nzMode="horizontal">
+    <li nz-menu-item [nzSelected]="isActive('')">
+      <i nz-icon nzType="home" nzTheme="outline"></i>
+      <a routerLinkActive="active" routerLink="">&nbsp;HOME</a>
+    </li>
+    <li nz-menu-item [nzSelected]="isActive('categories')">
+      <i nz-icon nzType="appstore"></i>
+      <a routerLinkActive="active" routerLink="/categories">&nbsp;ALL CATEGORIES</a>
+    </li>
+    <li nz-menu-item *ngFor="let category of categories" [nzSelected]="isActive(category)">
+      <a routerLinkActive="active" [routerLink]="['/categories', category.toLowerCase()]">&nbsp;{{category}}</a>
+    </li>
+    <li nz-menu-item style="float: right">
+      <i nz-icon nzType="user" nzTheme="outline"></i>
+      &nbsp;LOGIN
+    </li>
+  </ul>
+  <br>
+  <nz-divider nzOrientation="left" [nzText]="getPageTitle()"></nz-divider>
+
+  <nz-layout class="full-height">
+    <router-outlet></router-outlet>
+  </nz-layout>
+</nz-layout>
