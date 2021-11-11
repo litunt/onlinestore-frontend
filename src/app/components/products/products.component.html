@@ -4,11 +4,19 @@
   <nz-breadcrumb-item *ngFor="let pet of petTypes" [className]="getClassName(pet)">
     <a [routerLink]="['/categories/', category.toLowerCase(), pet.toLowerCase()]">{{pet}}</a>
   </nz-breadcrumb-item>
-  <div style="float: right;">
-    <label for="pageSize">Products on page:&nbsp;</label>
-    <nz-select id="pageSize" [(ngModel)]="size" (ngModelChange)="getProducts()">
-      <nz-option *ngFor="let num of numberOfProductsList" [nzValue]="num" [nzLabel]="num.toString()"></nz-option>
-    </nz-select>
+  <div style="display:inline-block;float: right;">
+    <div style="float: left">
+      <label for="sortBy">Sort by:&nbsp;</label>
+      <nz-select id="sortBy" [(ngModel)]="sort" (ngModelChange)="getProducts()">
+        <nz-option *ngFor="let sortingOpt of sortingOptions" [nzValue]="sortingOpt" [nzLabel]="sortingOpt.title"></nz-option>
+      </nz-select>
+    </div>
+    <div style="float: left">
+      <label for="pageSize">&nbsp;&nbsp;Products on page:&nbsp;</label>
+      <nz-select id="pageSize" [(ngModel)]="size" (ngModelChange)="getProducts()">
+        <nz-option *ngFor="let num of numberOfProductsList" [nzValue]="num" [nzLabel]="num.toString()"></nz-option>
+      </nz-select>
+    </div>
   </div>
 </nz-breadcrumb>
 <div nz-row [nzGutter]="8" nzJustify="center" style="margin-top: 2%" *ngFor="let row of productRows">
