@@ -1,0 +1,28 @@
+<nz-card style="width: 90%" [nzCover]="coverTemplate" [nzActions]="[actionAddToCart, actionShowDetails]">
+  <nz-card-meta [nzTitle]="product?.price.toFixed(2) + '€'" [nzDescription]="product?.name" ></nz-card-meta>
+</nz-card>
+
+<ng-template #coverTemplate>
+  <div class="crop">
+    <img alt="product-img" [src]="getImageUrl()"/>
+  </div>
+</ng-template>
+<ng-template #actionAddToCart>
+  <a (click)="addToCart()">
+    <i nz-icon nzType="shopping-cart" nzTheme="outline"></i>
+    Add to cart
+  </a>
+</ng-template>
+<ng-template #actionShowDetails>
+  <a (click)="openDetailsModal()">
+    <i nz-icon nzType="right-circle" nzTheme="outline"></i>
+    Show details
+  </a>
+</ng-template>
+<app-product-details [visible]="showDetails"
+                     [title]="product?.name"
+                     [price]="product?.price"
+                     [description]="product?.description"
+                     [imgUrl]="getImageUrl()"
+                     (okCallback)="handleOk()"
+                     (cancelCallback)="handleCancel()"></app-product-details>

@@ -1,4 +1,5 @@
 <nz-layout>
+  <br>
   <ul nz-menu nzMode="horizontal">
     <li nz-menu-item [nzSelected]="isActive('')">
       <i nz-icon nzType="home" nzTheme="outline"></i>
@@ -12,14 +13,26 @@
       <a routerLinkActive="active" [routerLink]="['/categories', category.toLowerCase()]">&nbsp;{{category}}</a>
     </li>
     <li nz-menu-item style="float: right">
+      <a routerLink="/cart">
+        <nz-badge [nzCount]="getNumberOfCartItems()" style="margin-right: 24px;">
+          <nz-avatar nzIcon="shopping-cart" style="background-color: #2D5065; font-weight: bold"></nz-avatar>
+        </nz-badge>
+      </a>
+    </li>
+    <li nz-menu-item style="float: right" [nzSelected]="isActive(isUserAuthenticated() ? 'profile' : 'login')">
       <i nz-icon nzType="user" nzTheme="outline"></i>
-      &nbsp;LOGIN
+      <a [routerLink]="['/user', isUserAuthenticated() ? 'profile' : 'login']">&nbsp;{{isUserAuthenticated() ? 'PROFILE' : 'LOGIN'}}</a>
+    </li>
+    <li *ngIf="isUserAuthenticated()" nz-menu-item style="float: right">
+      <a (click)="logOut()">LOGOUT</a>
     </li>
   </ul>
   <br>
   <nz-divider nzOrientation="left" [nzText]="getPageTitle()"></nz-divider>
 
   <nz-layout class="full-height">
-    <router-outlet></router-outlet>
+    <div style="padding-left: 10%; padding-right: 10%">
+      <router-outlet></router-outlet>
+    </div>
   </nz-layout>
 </nz-layout>

@@ -1,0 +1,40 @@
+<h3 *ngIf="cartItems.length === 0">Your cart is empty :(</h3>
+<h4 *ngIf="cartItems.length !== 0">CREATED: {{getCreatedDate()}}</h4>
+<nz-list nzItemLayout="horizontal">
+  <nz-list-item *ngFor="let item of cartItems" style="background-color: white">
+    <a style="color: #0092ff" (click)="openDetailsModal()">details</a>
+    <ul nz-list-item-actions>
+      <nz-list-item-action>
+        <nz-input-number [(ngModel)]="item.quantity" [nzMin]="0" [nzMax]="10" [nzStep]="1" (ngModelChange)="increaseItemQuantity($event, item)"></nz-input-number>
+      </nz-list-item-action>
+    </ul>
+    <nz-list-item-meta [nzDescription]="item.product.name" style="margin-left: 2%">
+      <nz-list-item-meta-title>
+        {{ item.product.price.toFixed(2) + '€'}}
+      </nz-list-item-meta-title>
+    </nz-list-item-meta>
+    <app-product-details [visible]="showDetails"
+                         [title]="item.product.name"
+                         [price]="item.product.price"
+                         [imgUrl]="getImageUrl(item.product)"
+                         [description]="item.product.description"
+                         (okCallback)="handleOk()"
+                         (cancelCallback)="handleCancel()"></app-product-details>
+  </nz-list-item>
+  <nz-list-empty *ngIf="cartItems.length === 0"></nz-list-empty>
+</nz-list>
+<br>
+<h3 *ngIf="cartItems.length > 0">Your total: {{getTotalSum().toFixed(2) + '€'}}</h3>
+<span *ngIf="cartItems.length > 0" style="float: right" nz-tooltip
+      [nzTooltipTitle]="orderButtonDisabled() ? 'Login or Register to order!' : 'Proceed to order!'">
+  <button (click)="doOrder()" [disabled]="orderButtonDisabled()" nz-button nzType="primary">
+    Order
+  </button>
+</span>
+<!--<nz-list nzGrid *ngIf="cartItems.length > 0">-->
+<!--  <div nz-row [nzGutter]="16">-->
+<!--    <div nz-col [nzSpan]="6" *ngFor="let item of cartItems">-->
+<!--      <app-cart-item [item]="item"></app-cart-item>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</nz-list>-->

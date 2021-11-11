@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { CATEGORIES } from "./utils/utils";
 import {Router} from "@angular/router";
+import {AuthenticationService} from "./services/authentication.service";
+import {CartService} from "./services/cart.service";
+import {CartComponent} from "./components/cart/cart.component";
 
 @Component({
   selector: 'app-root',
@@ -13,7 +16,25 @@ export class AppComponent {
 
   private ALL_CATEGORIES: string = 'ALL CATEGORIES';
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private authService: AuthenticationService,
+              private cartService: CartService) {
+  }
+
+  public isUserAuthenticated() {
+    return this.authService.isUserLoggedIn();
+  }
+
+  public logOut() {
+    this.authService.logout();
+    this.router.navigate(['/']);
+  }
+
+  public getNumberOfCartItems() {
+    if (localStorage.getItem('numberOfCartItems')) {
+      return parseInt(localStorage.getItem('numberOfCartItems')!);
+    }
+    return 0;
   }
 
   public isActive(currentPath: string): boolean {
@@ -27,7 +48,7 @@ export class AppComponent {
     if (title === 'categories') {
       return this.ALL_CATEGORIES;
     } else if (title === '') {
-      return '';
+      return 'WELCOME TO PET STORE :)';
     }
     return title.toUpperCase();
   }

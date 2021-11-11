@@ -1,0 +1,15 @@
+<nz-layout>
+  <nz-layout>
+    <nz-sider style="background: transparent">
+      <p><b>Username:</b> {{currentUser.username}}</p>
+      <p><b>Full Name:</b> {{currentUser.name}}</p>
+      <p><b>Registration Date:</b>
+        <br>
+        {{getRegDate()}}</p>
+    </nz-sider>
+    <nz-content>
+      <b>MY ORDERS</b>
+      <app-orders></app-orders>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

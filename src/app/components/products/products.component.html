@@ -1,0 +1,23 @@
+<nz-back-top></nz-back-top>
+
+<nz-breadcrumb>
+  <nz-breadcrumb-item *ngFor="let pet of petTypes" [className]="getClassName(pet)">
+    <a [routerLink]="['/categories/', category.toLowerCase(), pet.toLowerCase()]">{{pet}}</a>
+  </nz-breadcrumb-item>
+  <div style="float: right;">
+    <label for="pageSize">Products on page:&nbsp;</label>
+    <nz-select id="pageSize" [(ngModel)]="size" (ngModelChange)="getProducts()">
+      <nz-option *ngFor="let num of numberOfProductsList" [nzValue]="num" [nzLabel]="num.toString()"></nz-option>
+    </nz-select>
+  </div>
+</nz-breadcrumb>
+<div nz-row [nzGutter]="8" nzJustify="center" style="margin-top: 2%" *ngFor="let row of productRows">
+  <div nz-col [nzSpan]="colSpan"
+       *ngFor="let p of products.slice(row * numOfProductsInRow, row * numOfProductsInRow + numOfProductsInRow)">
+    <app-product-card [product]="p"></app-product-card>
+  </div>
+</div>
+<br>
+<div nz-row nzJustify="center" style="margin-top: 2%">
+  <nz-pagination [nzPageIndex]="page" [nzTotal]="productsTotal" [nzPageSize]="size" (nzPageIndexChange)="pageChange($event)"></nz-pagination>
+</div>
