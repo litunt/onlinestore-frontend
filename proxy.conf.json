@@ -1,6 +1,6 @@
 {
   "/api/*": {
-    "target": "http://ec2-3-84-41-198.compute-1.amazonaws.com:3030",
+    "target": "http://ec2-3-95-178-58.compute-1.amazonaws.com:3030",
     "secure": false,
     "pathRewrite": {"^/api" : ""}
   }
