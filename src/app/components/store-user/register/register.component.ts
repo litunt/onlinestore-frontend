@@ -3,6 +3,8 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserRegistration} from "../../../models/userRegistration.model";
 import {encrypt} from "../../../utils/crypto.utils";
 import {RegistrationService} from "../../../services/registration.service";
+import {Router} from "@angular/router";
+import {ErrorHandlerComponent} from "../../error-handler/error-handler.component";
 
 @Component({
   selector: 'app-register',
@@ -14,7 +16,9 @@ export class RegisterComponent implements OnInit {
   validateForm!: FormGroup;
 
   constructor(private fb: FormBuilder,
-              private registrationService: RegistrationService) { }
+              private registrationService: RegistrationService,
+              private router: Router,
+              private errorHandler: ErrorHandlerComponent) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -34,7 +38,10 @@ export class RegisterComponent implements OnInit {
         fullName: this.validateForm.controls.fullName.value
       }
       this.registrationService.registerNewUser(userRegistration).subscribe((res) => {
-        console.log(res);
+        this.router.navigate(['user/login']);
+      }, errorResponse => {
+        this.errorHandler.handleError(errorResponse.error.message);
+        this.router.navigate(['user/login']);
       })
     } else {
       Object.values(this.validateForm.controls).forEach(control => {
